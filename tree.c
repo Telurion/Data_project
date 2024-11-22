@@ -132,7 +132,7 @@ t_move *remove_current_move(int size, int index, t_move *possible_moves) {
 
 
 // trouver la minLeaf (si hors limite, pas pris en compte) //DONE//
-// trouver la valeur minimum (de la leafmin)
+// trouver la valeur minimum (de la leafmin)    //DONE//
 // trouver le meilleur chemin
 // faire une fonction qui permet de savoir sur quel type de terrain on est (Ensuite voir conditions en message sur discord)
 // fonction qui dit si on arrive à la base (point d'arrivée) ou non
@@ -146,10 +146,10 @@ t_move *remove_current_move(int size, int index, t_move *possible_moves) {
 // Recherche de la valeur minimale de tout l'arbre         //NOT DONE BUT EASY//
 
 //NODE_QUEUE :
-//Fonction de file pour les noeuds
-// Création d'une file vide
-// Ajout d'un noeud dans la file
-// Retirer un noeud de la file
+//Fonction de file pour les noeuds          //DONE//
+// Création d'une file vide  //DONE//
+// Ajout d'un noeud dans la file  //DONE//
+// Retirer un noeud de la file //DONE//
 
 //PATH :
 //Recherche de la feuille de valeur minimale            // DONE//

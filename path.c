@@ -28,7 +28,7 @@ int search_min_node(p_node node) {
     }
 
     return min_val;
-
+}
 
 p_node* tab_of_min(p_node node, int* len){
     int min_val = search_min_node(node);
@@ -40,8 +40,8 @@ p_node* tab_of_min(p_node node, int* len){
     while (q.first != q.last){
         cur = dequeue_node(&q);
         if(cur->cost == min_val){
-            int depth_of_min = cur->depth;
-            while (cur->depth == depth_of_min && q.first != q.last){
+            int depth_of_min = cur->idx;
+            while (cur->idx == depth_of_min && q.first != q.last){
                 if(cur->cost == min_val){
                     min_leaf[*len] = cur;
                     (*len)++;
