@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define NB_MOVES 5
 #define NUM_MOVEMENTS 7
 #define PHASES 9
 
@@ -59,40 +60,62 @@ t_move *getMovesArray() {
     return moves;
 }
 
-p_node createNode(int cost, int nb_sons, t_move move, t_node **sons, t_node *parent) {
+p_node createNode(int idx, int cost, int nb_sons, t_move move, t_node *parent) {
     p_node my_node = (p_node)malloc(sizeof(t_node));
+    my_node->idx = idx;
     my_node->cost = cost;
     my_node->nb_sons = nb_sons;
     my_node->move = move;
-    my_node->sons = sons;
+    my_node->sons = (p_node *)malloc(nb_sons * sizeof(p_node));
     my_node->parent = parent;
+    for (int i = 0; i < nb_sons; i++) {
+        my_node->sons[i] = NULL;
+    }
     return my_node;
 }
 
-t_tree createEmptyTree(int val_root) {
+t_tree createTree(int idx, int nb_possibilities, t_localisation robot, t_map map, t_move present_move, t_move *possible_moves) {
     t_tree t;
-    t.root = createNode(val_root, 0, NO_MOVE, NULL, NULL);
+    t.root = addNodesToTree(idx, nb_possibilities, robot, map, present_move, possible_moves, NULL);
     return t;
 }
 
-void addNodesToTree(int nb_possibilities, t_localisation robot, t_map map, p_node parent, t_move *remaining_moves) {
-
-    //if a faire pour verifier si infos okk
+p_node addNodesToTree(int idx, int nb_possibilities, t_localisation robot, t_map map, t_move present_move, t_move *possible_moves, p_node parent_node) {
+    p_node my_node = createNode(idx, map.costs[robot.pos.x][robot.pos.y], nb_possibilities, present_move, parent_node);
+    if (map.costs[robot.pos.x][robot.pos.y] >= 1000 || map.costs[robot.pos.x][robot.pos.y] == 0) {
+        nb_possibilities = 0;
+    }
+    if (idx == NB_MOVES) {
+        nb_possibilities = 0;
+    }
     for (int i = 0; i < nb_possibilities; i++) {
         t_localisation new_robot_loc = robot;
-        updateLocalisation(&new_robot_loc, remaining_moves[i]);
+        updateLocalisation(&new_robot_loc, possible_moves[i]);
         if (isValidLocalisation(new_robot_loc.pos, map.x_max, map.y_max)) {
-            // faire le new node
+            t_move *new_possible_moves = remove_current_move(nb_possibilities, i, possible_moves);
+            my_node->sons[i] = addNodesToTree(idx++, nb_possibilities--, new_robot_loc, map, possible_moves[i], new_possible_moves, my_node);
         }
         else {
-            //mettre les nodes a 0
+            my_node->sons[i] = 0;
         }
     }
+    return my_node;
 }
 
-t_tree createTreeWithCombinations(t_move *moves, int val_root) {
-    t_tree tree = createEmptyTree(val_root);
-    addNodesToTree(tree.root, moves);
-
-    return tree;
+t_move *remove_current_move(int size, int index, t_move *possible_moves) {
+    t_move *new_possible_moves = (t_move *) malloc((size - 1) * sizeof(t_move));
+    int found = 0;
+    for (int i = 0; i < size-1; ++i) {
+        if (index == i) {
+            found = 1;
+        }
+        new_possible_moves[i] = possible_moves[i + found];
+    }
+    return new_possible_moves;
 }
+
+// trouver la minLeaf (si hors limite, pas pris en compte)
+// trouver la valeur minimum (de la leafmin)
+// trouver le meilleur chemin
+// faire une fonction qui permet de savoir sur quel type de terrain on est (Ensuite voir conditions en message sur discord)
+// fonction qui dit si on arrive à la base (point d'arrivée) ou non

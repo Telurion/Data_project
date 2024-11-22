@@ -11,6 +11,7 @@
 
 typedef struct s_node
 {
+    int idx;
     int cost;
     int nb_sons;
     t_move move;
@@ -24,12 +25,10 @@ typedef struct
     t_node *root;
 } t_tree;
 
-p_node createNode(int cost, int nb_sons, t_move move, t_node **sons, t_node *parent);
-t_tree createEmptyTree(int val_root);
 t_move *getMovesArray();
-//void addNodesToTree(p_node parent, t_move *remaining_moves);
-t_tree createTreeWithCombinations(t_move *, int);
-void printTree(p_node node, int depth);
-
+p_node createNode(int, int, int, t_move, t_node *);
+t_tree createTree(int, int, t_localisation, t_map, t_move, t_move *);
+p_node addNodesToTree(int, int, t_localisation, t_map, t_move, t_move *, p_node);
+t_move *remove_current_move(int, int, t_move *);
 
 #endif //UNTITLED1_TREE_H

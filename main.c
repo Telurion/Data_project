@@ -40,10 +40,5 @@ int main() {
     for (int i = 0; i < PHASES; i++) {
         printf("Move %d : %s\n", i+1, getMoveAsString(moves[i]));
     }
-
-    t_tree tree = createTreeWithCombinations(moves);
-
-    // Print the tree (for testing purposes, it may be large)
-    printTree(tree.root, 0);
     return 0;
 }
