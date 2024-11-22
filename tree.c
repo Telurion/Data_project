@@ -114,8 +114,48 @@ t_move *remove_current_move(int size, int index, t_move *possible_moves) {
     return new_possible_moves;
 }
 
-// trouver la minLeaf (si hors limite, pas pris en compte)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// trouver la minLeaf (si hors limite, pas pris en compte) //DONE//
 // trouver la valeur minimum (de la leafmin)
 // trouver le meilleur chemin
 // faire une fonction qui permet de savoir sur quel type de terrain on est (Ensuite voir conditions en message sur discord)
 // fonction qui dit si on arrive à la base (point d'arrivée) ou non
+
+// MANDATORY
+
+//TREE :
+// Définition de la structure de l'arbre et des noeuds     //DONE//
+// Création d'un noeud                                     //DONE//
+// Construction d'un arbre n-aires                         //DONE//
+// Recherche de la valeur minimale de tout l'arbre         //NOT DONE BUT EASY//
+
+//NODE_QUEUE :
+//Fonction de file pour les noeuds
+// Création d'une file vide
+// Ajout d'un noeud dans la file
+// Retirer un noeud de la file
+
+//PATH :
+//Recherche de la feuille de valeur minimale            // DONE//
+// Parcours en largeur pour trouver tous les noeuds ayant la valeur minimale
+// Calcul du coût total du chemin pour arriver à chaque noeud minimal
+// Choix du noeud ayant le coût optimal
+//Définition du chemin optimal
+// Définir les mouvements à effectuer pour avoir le parcours le plus optimal
+//

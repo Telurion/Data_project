@@ -14,6 +14,7 @@ typedef struct s_node
     int idx;
     int cost;
     int nb_sons;
+    int depth;
     t_move move;
     struct s_node **sons;           //pointeur tous ce qui suivent (sur le fils)
     struct s_node *parent;          //pointeur sur parent

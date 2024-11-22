@@ -4,6 +4,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "queue.h"
 
 /**
@@ -23,6 +24,7 @@ t_queue createQueue(int size)
     return queue;
 }
 
+
 void enqueue(t_queue *p_queue, t_position pos)
 {
     // the queue must not be full
@@ -38,4 +40,32 @@ t_position dequeue(t_queue *p_queue)
     assert(p_queue->last != p_queue->first);
     p_queue->first++;
     return p_queue->values[(p_queue->first - 1) % p_queue->size];
+}
+
+//BY AMINE//
+t_queue createQueue2(int size)
+{
+    // the size of the queue must be positive
+    assert(size > 0);
+    t_queue queue;
+    queue.size = size;
+    queue.first = 0;
+    queue.last = 0;
+    queue.values = (p_node *)malloc(size * sizeof(p_node));
+    return queue;
+}
+void enqueue_node(t_queue_tab *p_queue, p_node node) {
+
+    assert((p_queue->last - p_queue->first) < p_queue->size);
+    p_queue->values[(p_queue->last) % p_queue->size] = node;
+    p_queue->last++;
+}
+
+
+p_node dequeue_node(t_queue_tab *p_queue) {
+
+    assert(p_queue->last != p_queue->first);
+    p_node node = p_queue->values[(p_queue->first) % p_queue->size];
+    p_queue->first++;
+    return node;
 }
