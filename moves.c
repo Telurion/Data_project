@@ -153,3 +153,12 @@ void updateLocalisation(t_localisation *p_loc, t_move m)
     *p_loc = move(*p_loc, m);
     return;
 }
+
+void updateArrayLocalisation(t_localisation *p_loc, t_move *array, int length)
+{
+    for (int i = 0; i < length; i++) {
+        updateLocalisation(p_loc, array[i]);
+    }
+    return;
+}
+

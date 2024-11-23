@@ -14,11 +14,10 @@
 #include "queue.h"
 
 int search_min_node(p_node);
-p_node* tab_of_min(p_node node, int* len);
-p_node min_leaf(t_tree t); // finds the leaf containing minimum value for a tree
-p_node min_leaf_node(p_node node); // finds the leaf containing minimum value for a node
-t_move* best_path(t_tree t, int *len);
-
-
+p_node* tab_of_min(p_node, int *);
+p_node min_leaf(t_tree); // finds the leaf containing minimum value for a tree
+p_node min_leaf_node(p_node); // finds the leaf containing minimum value for a node
+t_move* best_moves(t_tree);
+int pathCost(p_node);
 
 #endif //UNTITLED1_PATH_H

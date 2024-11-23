@@ -51,4 +51,6 @@ t_localisation move(t_localisation, t_move);
  */
 void updateLocalisation(t_localisation *, t_move);
 
+void updateArrayLocalisation(t_localisation*, t_move*, int);
 #endif //UNTITLED1_MOVES_H
+

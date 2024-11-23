@@ -43,11 +43,11 @@ t_position dequeue(t_queue *p_queue)
 }
 
 //BY AMINE//
-t_queue createQueue2(int size)
+t_queue_tab createQueue2(int size)
 {
     // the size of the queue must be positive
     assert(size > 0);
-    t_queue queue;
+    t_queue_tab queue;
     queue.size = size;
     queue.first = 0;
     queue.last = 0;

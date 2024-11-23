@@ -60,12 +60,13 @@ t_move *getMovesArray() {
     return moves;
 }
 
-p_node createNode(int idx, int cost, int nb_sons, t_move move, t_node *parent) {
+p_node createNode(int idx, int cost, int nb_sons, t_move move, t_soil soil, t_node *parent) {
     p_node my_node = (p_node)malloc(sizeof(t_node));
     my_node->idx = idx;
     my_node->cost = cost;
     my_node->nb_sons = nb_sons;
     my_node->move = move;
+    my_node->soil_type = soil;
     my_node->sons = (p_node *)malloc(nb_sons * sizeof(p_node));
     my_node->parent = parent;
     for (int i = 0; i < nb_sons; i++) {
@@ -81,8 +82,8 @@ t_tree createTree(int idx, int nb_possibilities, t_localisation robot, t_map map
 }
 
 p_node addNodesToTree(int idx, int nb_possibilities, t_localisation robot, t_map map, t_move present_move, t_move *possible_moves, p_node parent_node) {
-    p_node my_node = createNode(idx, map.costs[robot.pos.x][robot.pos.y], nb_possibilities, present_move, parent_node);
-    if (map.costs[robot.pos.x][robot.pos.y] >= 1000 || map.costs[robot.pos.x][robot.pos.y] == 0) {
+    p_node my_node = createNode(idx, map.costs[robot.pos.x][robot.pos.y], nb_possibilities, present_move, map.soils[robot.pos.y][robot.pos.x], parent_node);
+    if (map.costs[robot.pos.x][robot.pos.y] >= 10000 || map.costs[robot.pos.x][robot.pos.y] == 0) {
         nb_possibilities = 0;
     }
     if (idx == NB_MOVES) {
