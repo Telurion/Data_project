@@ -5,7 +5,7 @@
 #include "path.h"
 #define MAX 15120
 
-int search_min_node(p_node node) {
+int search_min_node(p_node node) {                              /// WORKS !!!
     if (node == NULL) {
         printf("Empty tree");
         return -1;
@@ -35,9 +35,8 @@ int search_min_node(p_node node) {
 p_node* tab_of_min(p_node node, int* len){
     int min_val = search_min_node(node);
     p_node* min_leaf = (p_node*) malloc(MAX * sizeof(p_node));
-    t_queue_tab q;
+    t_queue_tab q  = createQueue2(1000);;
     p_node cur;
-    q = createQueue2(1000);
     enqueue_node(&q, node);
     while (q.first != q.last){
         cur = dequeue_node(&q);
@@ -86,35 +85,37 @@ p_node min_leaf(t_tree t) {
     return min_leaf_node(t.root);
 }
 
+void display_min_leaf(t_tree t){
+    p_node min = min_leaf(t);
+    printf("%d", min->cost);
+}
 
-t_move *best_moves(t_tree t) {
-    p_node leaf = min_leaf(t);
-    int depth = leaf->idx;
+
+t_move *best_moves(p_node path) {                              /// WORKS !!!
+    p_node curr = path;
+    int depth = path->idx;
 
     t_move *pathArray = (t_move *) malloc((depth) * sizeof(t_move));
-
-    for (int i = depth ; i > 0; i--)
-    {
-        pathArray[i]= leaf->move;
-        leaf = leaf->parent;
+    while (curr != NULL) {
+        pathArray[curr->idx] = curr->move;
+        curr = curr->parent;
     }
     return pathArray;
 }
 
 
-int pathCost(p_node path) {
-    p_node curr = path;
-    int depth = path->idx;
+int pathCost(p_node path) {                                 /// WORKS !!!
     int total_cost = 0;
-    for (int i = depth; i > 0; i++) {
+    p_node curr = path;
+    while (curr != NULL) {
         total_cost += curr->cost;
-        curr= curr->parent;
+        curr = curr->parent;
     }
     return total_cost;
 }
 
 
-int soil_type_reg(p_node my_node) {
+int soil_type_reg(p_node my_node) {                         ///WORkS BUT TO MODIFY !!!
     if (my_node->soil_type == REG) {
         return 1;
     }
@@ -124,7 +125,7 @@ int soil_type_reg(p_node my_node) {
 }
 
 
-int soil_type_erg(p_node my_node) {
+int soil_type_erg(p_node my_node) {                         /// WORKS !!!
     if (my_node->soil_type == ERG) {
         switch (my_node->move) {
             case F_10:
@@ -154,8 +155,8 @@ int soil_type_erg(p_node my_node) {
 }
 
 
-int win(t_map map, t_localisation robot) {
-    if (map.costs[robot.pos.x][robot.pos.y] == 0) {
+int win(t_map map, t_localisation robot) {                  /// WORKS !!!
+    if (map.costs[robot.pos.y][robot.pos.x] == 0) {
         return 1;
     }
     else {
@@ -164,8 +165,8 @@ int win(t_map map, t_localisation robot) {
 }
 
 
-int lose(t_map map, t_localisation robot) {
-    if (isValidLocalisation(robot.pos, map.x_max, map.y_max) == 0 || map.costs[robot.pos.x][robot.pos.y] >= 10000) {
+int lose(t_map map, t_localisation robot) {                 /// WORKS !!!
+    if (isValidLocalisation(robot.pos, map.x_max, map.y_max) == 0 || map.costs[robot.pos.y][robot.pos.x] >= 10000) {
         return 1;
     }
     else {

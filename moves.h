@@ -10,7 +10,7 @@
 /**
  * @brief Array of strings for the possible moves of the robot
  */
-static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T right", "U-turn"};
+static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T right", "U-turn", "No move"};
 
 /**
  * @brief Enum for the possible moves of the robot

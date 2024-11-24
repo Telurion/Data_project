@@ -13,7 +13,7 @@
 #define NUM_MOVEMENTS 7
 #define PHASES 9
 
-t_move *getMovesArray() {
+t_move *getMovesArray() {                                                                           /// WORKS !!!
     int prob[NUM_MOVEMENTS] = {22, 37, 44, 51, 72, 93, 100};
     t_move *moves;
     moves = (t_move*)malloc(PHASES * sizeof(t_move));
@@ -60,7 +60,7 @@ t_move *getMovesArray() {
     return moves;
 }
 
-p_node createNode(int idx, int cost, int nb_sons, t_move move, t_soil soil, t_node *parent) {
+p_node createNode(int idx, int cost, int nb_sons, t_move move, t_soil soil, t_node *parent) {       /// WORKS !!!
     p_node my_node = (p_node)malloc(sizeof(t_node));
     my_node->idx = idx;
     my_node->cost = cost;
@@ -82,13 +82,13 @@ t_tree createTree(int idx, int nb_possibilities, t_localisation robot, t_map map
 }
 
 p_node addNodesToTree(int idx, int nb_possibilities, t_localisation robot, t_map map, t_move present_move, t_move *possible_moves, p_node parent_node) {
-    p_node my_node = createNode(idx, map.costs[robot.pos.x][robot.pos.y], nb_possibilities, present_move, map.soils[robot.pos.y][robot.pos.x], parent_node);
-    if (map.costs[robot.pos.x][robot.pos.y] >= 10000 || map.costs[robot.pos.x][robot.pos.y] == 0) {
+    if (map.costs[robot.pos.y][robot.pos.x] >= 10000 || map.costs[robot.pos.y][robot.pos.x] == 0) {
         nb_possibilities = 0;
     }
     if (idx == NB_MOVES) {
         nb_possibilities = 0;
     }
+    p_node my_node = createNode(idx, map.costs[robot.pos.x][robot.pos.y], nb_possibilities, present_move, map.soils[robot.pos.y][robot.pos.x], parent_node);
     for (int i = 0; i < nb_possibilities; i++) {
         t_localisation new_robot_loc = robot;
         updateLocalisation(&new_robot_loc, possible_moves[i]);
@@ -103,7 +103,7 @@ p_node addNodesToTree(int idx, int nb_possibilities, t_localisation robot, t_map
     return my_node;
 }
 
-t_move *remove_current_move(int size, int index, t_move *possible_moves) {
+t_move *remove_current_move(int size, int index, t_move *possible_moves) {                          /// WORKS !!!
     t_move *new_possible_moves = (t_move *) malloc((size - 1) * sizeof(t_move));
     int found = 0;
     for (int i = 0; i < size-1; ++i) {
