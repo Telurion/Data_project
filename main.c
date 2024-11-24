@@ -101,9 +101,6 @@ int main() {
 // To fix :
 //  - createTree
 //  - addNodesToTree
-//  - tab_of_min
-//  - min_leaf_node
-//  - min_leaf
 //  - display_min_leaf
 
 // Also need to do the main

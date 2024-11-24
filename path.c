@@ -74,7 +74,7 @@ p_node min_leaf_node(p_node node) {                             /// WORKS
 }
 
 
-p_node min_leaf(t_tree t) {
+p_node min_leaf(t_tree t) {      /// WORKS
     return min_leaf_node(t.root);
 }
 
