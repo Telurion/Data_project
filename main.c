@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "map.h"
 #include "tree.h"
 #include "path.h"
@@ -17,6 +16,7 @@ int main() {
 #else
     map = createMapFromFile("../maps/example1.map");
 #endif
+
 
 
     ///     MAP DISPLAY     ///
@@ -36,72 +36,61 @@ int main() {
     displayMap(map);
 
 
-    ///     DRAW RANDOM MOVES     ///
-    t_move *moves = getMovesArray();
-    for (int i = 0; i < PHASES; i++) {
-        printf("Move %d : %s\n", i+1, getMoveAsString(moves[i]));
-    }
-    printf("-------------\n");
-
 
     ///     RANDOM ROBOT CREATION     ///
     int x = rand() % map.x_max;
     int y = rand() % map.y_max;
     t_orientation ori = rand() % 4;
-    //t_localisation robot = loc_init(x, y, ori);
-    t_localisation robot = loc_init(2, 1, ori);
-
-
-    ///     TREE CREATION     ///
-    //t_tree tree = createTree(0, PHASES, robot, map, NO_MOVE, moves);  createNode(int idx, int cost, int nb_sons, t_move move, t_soil soil, t_node *parent)
-    p_node my_root_node = createNode(0,0, 1, NO_MOVE, PLAIN, NULL);
-    p_node my_node1 = createNode(1,3, 2, F_10, REG, my_root_node);
-    p_node my_node2 = createNode(2,5, 1, T_RIGHT, PLAIN, my_node1);
-    p_node my_node3 = createNode(3,7, 4, F_20, PLAIN, my_node2);
-    p_node my_node4_1 = createNode(4,8, 3, F_10, ERG, my_node3);
-    p_node my_node4_2 = createNode(4,10002, 3, F_20, CREVASSE, my_node3);
-    t_tree t;
-    t.root = my_root_node;
-
-    printf("%d", search_min_node(t.root));
-    int len = 0;
-    p_node* test = tab_of_min(t.root, &len);
-
-    ///     GET THE BEST PATH     ///
-    t_move *my_best = best_moves(my_node4_1);
-    for (int i = 0; i < 5; i++) {
-        printf("Move %d : %s\n", i+1, getMoveAsString(my_best[i]));
-    }
-
-    int len2 = 0;
-    p_node* min_leaves = tab_of_min(my_root_node, &len2);
-    printf("Number of leaves with minimum cost: %d\n", len2);
-    for (int i = 0; i < len2; i++) {
-        printf("Leaf %d: Cost = %d, Index = %d\n", i, min_leaves[i]->cost, min_leaves[i]->idx);
-    }
+    t_localisation robot = loc_init(x, y, ori);
+    printf("The robot can be found at these coordinates : y = %d, x = %d", y, x);
 
 
 
-    p_node min_leaf = min_leaf_node(my_root_node);
-    if (min_leaf != NULL) {
-        printf("Minimum leaf node: Cost = %d, Index = %d\n", min_leaf->cost, min_leaf->idx);
-    } else {
-        printf("No minimum leaf node found.\n");
+    while (win(map, robot) != 1 || lose(map, robot) != 1) {
+        ///     DRAW RANDOM MOVES     ///
+        t_move *moves = getMovesArray();
+        printf("Here are the moves that our robot is going to be able to use : \n");
+        for (int i = 0; i < PHASES; i++) {
+            printf("Move %d : %s\n", i+1, getMoveAsString(moves[i]));
+        }
+        printf("-------------\n");
+
+
+
+        ///     TREE CREATION USING THE DRAWN MOVEMENTS     ///
+        t_tree tree = createTree(0, PHASES, robot, map, NO_MOVE, moves);
+        //p_node my_root_node = createNode(0,5, 1, NO_MOVE, PLAIN, NULL);
+        //p_node my_node1 = createNode(1,3, 2, F_10, REG, my_root_node);
+        //p_node my_node2 = createNode(2,5, 1, T_RIGHT, PLAIN, my_node1);
+        //p_node my_node3 = createNode(3,7, 4, F_20, PLAIN, my_node2);
+        //p_node my_node4_1 = createNode(4,0, 3, F_10, ERG, my_node3);
+        //p_node my_node4_2 = createNode(4,10002, 3, F_20, CREVASSE, my_node3);
+        //t_tree t;
+        //t.root = my_root_node;
+
+
+        ///     GET THE BEST PATH     ///
+        //p_node my_node = min_leaf(tree);
+        //printf("Here is the minimal leaf : \n");
+        //display_min_leaf(tree);
+        printf("Here are the moves that are made in the best path :\n");
+        t_move *my_best = best_moves(tree.root);
+        for (int i = 0; i < tree.root->idx+1; i++) {
+            printf("Move %d : %s\n", i+1, getMoveAsString(my_best[i]));
+        }
+        printf("Here is the total cost of the best path : %d\n", pathCost(tree.root));
+
+
+        ///     UPDATE OF THE ROBOT LOCALISATION     ///
+        for (int i = 0; i < tree.root->idx+1; i++) {
+            updateLocalisation(&robot, my_best[i]);
+        }
+        printf("New robot location : y = %d, x = %d\n", robot.pos.y, robot.pos.x);
     }
 
     return 0;
 }
 
-
-
-
-
-
-
 // To fix :
 //  - createTree
 //  - addNodesToTree
-//  - display_min_leaf
-
-// Also need to do the main
-// Also need to comment the functions

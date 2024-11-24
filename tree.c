@@ -13,7 +13,7 @@
 #define NUM_MOVEMENTS 7
 #define PHASES 9
 
-t_move *getMovesArray() {                                                                           /// WORKS !!!
+t_move *getMovesArray() {                                                                                               /// WORKS
     int prob[NUM_MOVEMENTS] = {22, 37, 44, 51, 72, 93, 100};
     t_move *moves;
     moves = (t_move*)malloc(PHASES * sizeof(t_move));
@@ -60,7 +60,7 @@ t_move *getMovesArray() {                                                       
     return moves;
 }
 
-p_node createNode(int idx, int cost, int nb_sons, t_move move, t_soil soil, t_node *parent) {       /// WORKS !!!
+p_node createNode(int idx, int cost, int nb_sons, t_move move, t_soil soil, t_node *parent) {                           /// WORKS
     p_node my_node = (p_node)malloc(sizeof(t_node));
     my_node->idx = idx;
     my_node->cost = cost;
@@ -103,7 +103,7 @@ p_node addNodesToTree(int idx, int nb_possibilities, t_localisation robot, t_map
     return my_node;
 }
 
-t_move *remove_current_move(int size, int index, t_move *possible_moves) {                          /// WORKS !!!
+t_move *remove_current_move(int size, int index, t_move *possible_moves) {                                              /// WORKS
     t_move *new_possible_moves = (t_move *) malloc((size - 1) * sizeof(t_move));
     int found = 0;
     for (int i = 0; i < size-1; ++i) {
@@ -114,49 +114,3 @@ t_move *remove_current_move(int size, int index, t_move *possible_moves) {      
     }
     return new_possible_moves;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// trouver la minLeaf (si hors limite, pas pris en compte) //DONE//
-// trouver la valeur minimum (de la leafmin)    //DONE//
-// trouver le meilleur chemin
-// faire une fonction qui permet de savoir sur quel type de terrain on est (Ensuite voir conditions en message sur discord)
-// fonction qui dit si on arrive à la base (point d'arrivée) ou non
-
-// MANDATORY
-
-//TREE :
-// Définition de la structure de l'arbre et des noeuds     //DONE//
-// Création d'un noeud                                     //DONE//
-// Construction d'un arbre n-aires                         //DONE//
-// Recherche de la valeur minimale de tout l'arbre         //NOT DONE BUT EASY//
-
-//NODE_QUEUE :
-//Fonction de file pour les noeuds          //DONE//
-// Création d'une file vide  //DONE//
-// Ajout d'un noeud dans la file  //DONE//
-// Retirer un noeud de la file //DONE//
-
-//PATH :
-//Recherche de la feuille de valeur minimale            // DONE//
-// Parcours en largeur pour trouver tous les noeuds ayant la valeur minimale
-// Calcul du coût total du chemin pour arriver à chaque noeud minimal
-// Choix du noeud ayant le coût optimal
-//Définition du chemin optimal
-// Définir les mouvements à effectuer pour avoir le parcours le plus optimal
-//

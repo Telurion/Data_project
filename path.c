@@ -5,7 +5,7 @@
 #include "path.h"
 #define MAX 15120
 
-int search_min_node(p_node node) {                              /// WORKS !!!
+int search_min_node(p_node node) {                                                                                      /// WORKS
     if (node == NULL) {
         printf("Empty tree");
         return -1;
@@ -32,7 +32,7 @@ int search_min_node(p_node node) {                              /// WORKS !!!
 }
 
 
-p_node* tab_of_min(p_node node, int* len){                /// WORKS
+p_node* tab_of_min(p_node node, int* len){                                                                              /// WORKS
     int min_val = search_min_node(node);
     p_node* min_leaf = (p_node*) malloc(MAX * sizeof(p_node));
     t_queue_tab q  = createQueue2(1000);;
@@ -56,7 +56,7 @@ p_node* tab_of_min(p_node node, int* len){                /// WORKS
 }
 
 
-p_node min_leaf_node(p_node node) {                             /// WORKS
+p_node min_leaf_node(p_node node) {                                                                                     /// WORKS
     int len = 0, cost = 0, cheap = 10000, idx;
     p_node *tab_min = tab_of_min(node, &len);
     for (int i = 0; i < len; i++) {
@@ -74,15 +74,10 @@ p_node min_leaf_node(p_node node) {                             /// WORKS
 }
 
 
-p_node min_leaf(t_tree t) {      /// WORKS
+p_node min_leaf(t_tree t) {                                                                                             /// WORKS
     return min_leaf_node(t.root);
 }
 
-
-t_move* best_path(t_tree t, int *len)
-{
-
-}
 
 void display_min_leaf(t_tree t){
     p_node min = min_leaf(t);
@@ -90,7 +85,7 @@ void display_min_leaf(t_tree t){
 }
 
 
-t_move *best_moves(p_node path) {                              /// WORKS !!!
+t_move *best_moves(p_node path) {                                                                                       /// WORKS
     p_node curr = path;
     int depth = path->idx;
 
@@ -103,7 +98,7 @@ t_move *best_moves(p_node path) {                              /// WORKS !!!
 }
 
 
-int pathCost(p_node path) {                                 /// WORKS !!!
+int pathCost(p_node path) {                                                                                             /// WORKS
     int total_cost = 0;
     p_node curr = path;
     while (curr != NULL) {
@@ -114,7 +109,7 @@ int pathCost(p_node path) {                                 /// WORKS !!!
 }
 
 
-int soil_type_reg(p_node my_node) {                         ///WORkS BUT TO MODIFY !!!
+int soil_type_reg(p_node my_node) {                                                                                     ///WORKS
     if (my_node->soil_type == REG) {
         return 1;
     }
@@ -124,7 +119,7 @@ int soil_type_reg(p_node my_node) {                         ///WORkS BUT TO MODI
 }
 
 
-int soil_type_erg(p_node my_node) {                         /// WORKS !!!
+int soil_type_erg(p_node my_node) {                                                                                     /// WORKS
     if (my_node->soil_type == ERG) {
         switch (my_node->move) {
             case F_10:
@@ -154,7 +149,7 @@ int soil_type_erg(p_node my_node) {                         /// WORKS !!!
 }
 
 
-int win(t_map map, t_localisation robot) {                  /// WORKS !!!
+int win(t_map map, t_localisation robot) {                                                                              /// WORKS
     if (map.costs[robot.pos.y][robot.pos.x] == 0) {
         return 1;
     }
@@ -164,7 +159,7 @@ int win(t_map map, t_localisation robot) {                  /// WORKS !!!
 }
 
 
-int lose(t_map map, t_localisation robot) {                 /// WORKS !!!
+int lose(t_map map, t_localisation robot) {                                                                             /// WORKS
     if (isValidLocalisation(robot.pos, map.x_max, map.y_max) == 0 || map.costs[robot.pos.y][robot.pos.x] >= 10000) {
         return 1;
     }
