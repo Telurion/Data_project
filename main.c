@@ -72,8 +72,30 @@ int main() {
     for (int i = 0; i < 5; i++) {
         printf("Move %d : %s\n", i+1, getMoveAsString(my_best[i]));
     }
+
+    int len2 = 0;
+    p_node* min_leaves = tab_of_min(my_root_node, &len2);
+    printf("Number of leaves with minimum cost: %d\n", len2);
+    for (int i = 0; i < len2; i++) {
+        printf("Leaf %d: Cost = %d, Index = %d\n", i, min_leaves[i]->cost, min_leaves[i]->idx);
+    }
+
+
+
+    p_node min_leaf = min_leaf_node(my_root_node);
+    if (min_leaf != NULL) {
+        printf("Minimum leaf node: Cost = %d, Index = %d\n", min_leaf->cost, min_leaf->idx);
+    } else {
+        printf("No minimum leaf node found.\n");
+    }
+
     return 0;
 }
+
+
+
+
+
 
 
 // To fix :

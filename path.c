@@ -32,7 +32,7 @@ int search_min_node(p_node node) {                              /// WORKS !!!
 }
 
 
-p_node* tab_of_min(p_node node, int* len){
+p_node* tab_of_min(p_node node, int* len){                /// WORKS
     int min_val = search_min_node(node);
     p_node* min_leaf = (p_node*) malloc(MAX * sizeof(p_node));
     t_queue_tab q  = createQueue2(1000);;
@@ -40,18 +40,11 @@ p_node* tab_of_min(p_node node, int* len){
     enqueue_node(&q, node);
     while (q.first != q.last){
         cur = dequeue_node(&q);
-        if(cur->cost == min_val){
-            int depth_of_min = cur->idx;
-            while (cur->idx == depth_of_min && q.first != q.last){
-                if(cur->cost == min_val){
-                    min_leaf[*len] = cur;
-                    (*len)++;
-                }
-                cur = dequeue_node(&q);
-            }
-            return min_leaf;
+        if (cur->cost == min_val) {
+            min_leaf[*len] = cur;
+            (*len)++;
         }
-        else if (cur->nb_sons != 0){
+        if (cur->nb_sons != 0){
             for (int i = 0; i < cur->nb_sons; i++) {
                 if (cur->sons[i] != NULL){
                     enqueue_node(&q,cur->sons[i]);
@@ -59,11 +52,11 @@ p_node* tab_of_min(p_node node, int* len){
             }
         }
     }
-    return NULL;
+    return min_leaf;
 }
 
 
-p_node min_leaf_node(p_node node) {
+p_node min_leaf_node(p_node node) {                             /// WORKS
     int len = 0, cost = 0, cheap = 10000, idx;
     p_node *tab_min = tab_of_min(node, &len);
     for (int i = 0; i < len; i++) {
@@ -83,6 +76,12 @@ p_node min_leaf_node(p_node node) {
 
 p_node min_leaf(t_tree t) {
     return min_leaf_node(t.root);
+}
+
+
+t_move* best_path(t_tree t, int *len)
+{
+
 }
 
 void display_min_leaf(t_tree t){
